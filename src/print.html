@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inkforge capture sheet</title>
+<style>
+  @page { size: auto; margin: 0.3in; }
+  html, body { margin: 0; background: #888; }
+  .page { background: #fff; width: min(100vw, 8.5in); margin: 20px auto; box-shadow: 0 4px 30px rgba(0,0,0,.3); }
+  .page svg { display: block; width: 100%; height: auto; }
+  .bar { position: sticky; top: 0; padding: 10px; text-align: center; font: 14px system-ui, sans-serif; background: #1d2433; color: #f4efe6; }
+  .bar button { font: inherit; margin-left: 10px; padding: 6px 14px; border-radius: 8px; border: 0; cursor: pointer; }
+  @media print {
+    html, body { background: #fff; }
+    .bar { display: none; }
+    .page { box-shadow: none; margin: 0; width: 100%; }
+    .page svg { max-height: calc(100vh - 0.6in); }
+  }
+</style>
+</head>
+<body>
+<div class="bar">Print at 100% scale (or "fit to page"), any paper size. <button onclick="print()">Print</button></div>
+<div class="page" id="page"></div>
+<script type="module">
+  import { templateSVG, PAGES } from './core/template.js';
+  import { store } from './ui/store.js';
+  const q = new URLSearchParams(location.search);
+  if (q.has('gap')) {
+    const idx = Number(q.get('gap'));
+    let sheet = null;
+    try { if (q.has('cells')) sheet = { index: idx, title: q.get('title') || 'Gap filler', cells: JSON.parse(q.get('cells')) }; } catch {}
+    if (!sheet) sheet = ((await store.getMeta('gapSheets').catch(() => null)) || []).find(p => p.index === idx);
+    if (sheet) {
+      document.title = `Inkforge ${sheet.title}`;
+      document.getElementById('page').innerHTML = templateSVG(sheet.index, sheet);
+    } else {
+      document.getElementById('page').innerHTML = '<p style="padding:40px;font:16px system-ui">That gap-filler sheet no longer exists. Make a new one on the Capture page.</p>';
+    }
+  } else {
+    const i = Math.max(0, Math.min(PAGES.length - 1, Number(q.get('sheet')) || 0));
+    document.title = `Inkforge sheet ${i + 1}`;
+    document.getElementById('page').innerHTML = templateSVG(i);
+  }
+</script>
+</body>
+</html>

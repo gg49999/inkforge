@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inkforge</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231d2433'/><path d='M8 23c3-1 5-9 8-14 1 5 2 10 8 14' stroke='%23f4efe6' stroke-width='3' fill='none' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+  <nav class="side">
+    <div class="brand"><span class="mark">If</span><div><b>Inkforge</b><small>handwriting → font</small></div></div>
+    <a href="#capture" data-view="capture"><span>1</span>Capture</a>
+    <a href="#analyze" data-view="analyze"><span>2</span>Analyze</a>
+    <a href="#library" data-view="library"><span>3</span>Library</a>
+    <a href="#font" data-view="font"><span>4</span>Font</a>
+    <a href="#model" data-view="model"><span>5</span>Model</a>
+    <a href="#write" data-view="write"><span>6</span>Write</a>
+    <div class="side-foot" id="sideStats"></div>
+  </nav>
+  <main id="view"></main>
+</div>
+<div id="toasts"></div>
+<div id="busy" hidden><div class="spinner"></div><span id="busyMsg">Working…</span></div>
+<script type="module" src="ui/app.js"></script>
+</body>
+</html>

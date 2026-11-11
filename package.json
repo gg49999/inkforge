@@ -1,0 +1,26 @@
+{
+  "name": "inkforge",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Turn real handwriting into a real font with up to 64 versions per character, a learned shape model of the writer's hand, and a from-scratch TrueType/OpenType writer. Zero runtime dependencies.",
+  "keywords": ["handwriting", "font", "truetype", "opentype", "calt", "shape-model", "pca", "image-processing"],
+  "bin": {
+    "inkforge": "bin/inkforge.js"
+  },
+  "scripts": {
+    "start": "node bin/inkforge.js --app",
+    "dev": "node bin/inkforge.js --dev",
+    "test": "node test/run.js",
+    "eval": "node scripts/learn-eval.mjs && node scripts/learn-eval-report.mjs",
+    "readme-images": "node scripts/make-readme-images.mjs",
+    "build:exe": "node scripts/build-exe.mjs"
+  },
+  "devDependencies": {
+    "postject": "1.0.0-alpha.6"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "license": "MIT"
+}
